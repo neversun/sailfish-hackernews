@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Name=sailfish-python
+Name=harbour-hackernews
 Icon=icon-launcher-component-gallery
-Exec=sailfish-qml sailfish-python
+Exec=sailfish-qml harbour-hackernews

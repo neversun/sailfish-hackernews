@@ -1,5 +1,5 @@
 #!/bin/sh
 
-echo "removing /usr/share/sailfish-python"
-rm -rf /usr/share/sailfish-python
+echo "removing /usr/share/harbour-hackernews"
+rm -rf /usr/share/harbour-hackernews
 

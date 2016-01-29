@@ -1,5 +1,5 @@
 #!/bin/sh
 
-#rm -rf /usr/share/sailfish-python
+#rm -rf /usr/share/harbour-hackernews
 echo "Upgrading...."
 
