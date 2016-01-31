@@ -43,20 +43,62 @@ Page {
         title: "Stories"
     }
 
+    VerticalScrollDecorator {}
+
     delegate: ListItem {
       width: parent.width
       anchors {
         left: parent.left
+        leftMargin: Theme.horizontalPageMargin
         right: parent.right
+        rightMargin: Theme.horizontalPageMargin
       }
 
       Label {
-        width: parent.width
-        text: '#' + model.id
-        font.pixelSize: Theme.fontSizeLarge
+        id: title
+        text: model.title
+        font.pixelSize: Theme.fontSizeMedium
         color: highlighted ? Theme.highlightColor : Theme.primaryColor
-        horizontalAlignment: Text.AlignHCenter
+        horizontalAlignment: Text.AlignLeft
+        truncationMode: TruncationMode.Fade
+        anchors {
+          left: parent.left
+          right: parent.right
+        }
       }
+
+      Label {
+        id: author
+        text: model.by
+        color: Theme.highlightColor
+        font.pixelSize: Theme.fontSizeExtraSmall
+        horizontalAlignment: Text.AlignLeft
+        anchors {
+          top: title.bottom
+          left: parent.left
+        }
+      }
+
+      Label {
+        function timestamp(unixTime) {
+          var date = new Date(unixTime * 1000);
+          var txt = Format.formatDate(date, Formatter.Timepoint);
+          var elapsed = Format.formatDate(date, Formatter.DurationElapsed);
+          return txt + (elapsed ? ', (' + elapsed + ')' : '');
+        }
+
+        id: time
+        text: timestamp(model.time)
+        color: Theme.highlightColor
+        font.pixelSize: Theme.fontSizeExtraSmall
+        horizontalAlignment: Text.AlignLeft
+        anchors {
+          baseline: author.baseline
+          leftMargin: Theme.paddingSmall
+          left: author.right
+        }
+      }
+
     }
   }
 }
