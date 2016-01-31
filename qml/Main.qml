@@ -47,6 +47,7 @@ Page {
         right: parent.right
         rightMargin: Theme.horizontalPageMargin
       }
+      onClicked: pageStack.push(Qt.resolvedUrl('Webview.qml'), { url: model.url})
 
       Label {
         id: title
