@@ -7,13 +7,7 @@ Page {
   id: main
 
   Component.onCompleted: {
-    py.call("main.getNewstories",[], function(data) {
-      if (data && data.length > 0) {
-        for (var i=0; i<data.length; i++) {
-          items.append(data[i]);
-        }
-      }
-    })
+    py.call("main.getNewstories",[], {})
   }
 
   Python {
