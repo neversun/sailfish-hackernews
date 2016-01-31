@@ -21,7 +21,7 @@ Page {
       setHandler('new-story', main.appendStory)
     }
 
-     onReceived: console.log('Unhandled event: ' + data)
+    onReceived: console.log('Unhandled event: ' + data)
   }
 
   ListModel {
@@ -33,38 +33,29 @@ Page {
     items.append(story)
   }
 
-  SilicaFlickable {
+  SilicaListView {
     anchors.fill: parent
-    contentHeight: column.height
+    model: items
+    width: parent.width
+    height: parent.height
 
-    Column {
-      id: column
+    header: PageHeader {
+        title: "Stories"
+    }
 
-      width: main.width
-      spacing: Theme.paddingLarge
-
-      PageHeader {
-        title: qsTr("Channels")
+    delegate: ListItem {
+      width: parent.width
+      anchors {
+        left: parent.left
+        right: parent.right
       }
 
-      SilicaListView {
-        id: itemList
+      Label {
         width: parent.width
-        height: parent.height
-        model: items
-
-        delegate: BackgroundItem {
-          // onClicked: { pageStack.push(Qt.resolvedUrl("ChannelPage.qml"), { channelName: model.name, channelID: model.id  }) }
-          width: parent.width
-          Label {
-            text: '#' + model.id
-            font.pixelSize: Theme.fontSizeLarge
-            height: Theme.itemSizeLarge
-            width: parent.width
-            color: highlighted ? Theme.highlightColor : Theme.primaryColor
-            horizontalAlignment: Text.AlignHCenter
-          }
-        }
+        text: '#' + model.id
+        font.pixelSize: Theme.fontSizeLarge
+        color: highlighted ? Theme.highlightColor : Theme.primaryColor
+        horizontalAlignment: Text.AlignHCenter
       }
     }
   }
