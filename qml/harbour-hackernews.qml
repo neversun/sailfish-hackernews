@@ -20,8 +20,7 @@ ApplicationWindow {
                 py.addImportPath(Qt.resolvedUrl('../src/pyPackages/python_firebase-i686'));
             }
             py.importModule('main',function(){
-            py.call("main.helloWorld",[])
-            pageStack.push(Qt.resolvedUrl("Main.qml"))
+              pageStack.push(Qt.resolvedUrl("Main.qml"))
             })
         }
     }
