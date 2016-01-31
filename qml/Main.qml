@@ -1,12 +1,10 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import io.thp.pyotherside 1.3
+
 
 Page {
   id: main
-
-  ListModel {
-    id: items
-  }
 
   Component.onCompleted: {
     py.call("main.getNewstories",[], function(data) {
@@ -16,6 +14,23 @@ Page {
         }
       }
     })
+  }
+
+  Python {
+    Component.onCompleted: {
+      setHandler('new-story', main.appendStory)
+    }
+
+     onReceived: console.log('Unhandled event: ' + data)
+  }
+
+  ListModel {
+    id: items
+  }
+
+  function appendStory(story) {
+    console.log(JSON.stringify(story))
+    items.append(story)
   }
 
   SilicaFlickable {

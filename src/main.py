@@ -8,19 +8,13 @@ firebase = firebase.FirebaseApplication('https://hacker-news.firebaseio.com', No
 
 def getNewstories():
     newstories = firebase.get('/v0/newstories', None)
+    newstory = None
 
-    results = []
-    newstory = ''
-
-    # this is super slow. takes about 1s per request
     for newstory in newstories:
-        print(newstory)
         newstory = str(newstory)
 
-        story = firebase.get('/v0/item/'+newstory, None)
-        if story:
-            results.append(story)
+        story = firebase.get_async('/v0/item/'+newstory, None, callback=eventNewStory)
 
-    print(results)
 
-    return results
+def eventNewStory(response):
+    pyotherside.send('new-story', response)
