@@ -62,8 +62,13 @@ Page {
       }
 
       Label {
-        id: author
-        text: model.by
+        function timestamp(unixTime) {
+          var date = new Date(unixTime * 1000);
+          var elapsed = Format.formatDate(date, Formatter.DurationElapsed);
+          return (elapsed ? ' (' + elapsed + ')' : '');
+        }
+
+        text: model.score + ' points by ' + model.by + timestamp(model.time)
         color: Theme.highlightColor
         font.pixelSize: Theme.fontSizeExtraSmall
         horizontalAlignment: Text.AlignLeft
@@ -72,27 +77,6 @@ Page {
           left: parent.left
         }
       }
-
-      Label {
-        function timestamp(unixTime) {
-          var date = new Date(unixTime * 1000);
-          var txt = Format.formatDate(date, Formatter.Timepoint);
-          var elapsed = Format.formatDate(date, Formatter.DurationElapsed);
-          return txt + (elapsed ? ', (' + elapsed + ')' : '');
-        }
-
-        id: time
-        text: timestamp(model.time)
-        color: Theme.highlightColor
-        font.pixelSize: Theme.fontSizeExtraSmall
-        horizontalAlignment: Text.AlignLeft
-        anchors {
-          baseline: author.baseline
-          leftMargin: Theme.paddingSmall
-          left: author.right
-        }
-      }
-
     }
   }
 }
