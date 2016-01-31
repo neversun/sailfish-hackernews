@@ -9,7 +9,7 @@ version:=0.0.1
 iteration:=1
 rpmname:=$(Appname)-$(version)-$(iteration).$(arch).rpm
 ssh_user:=nemo
-jolla_usb_ip:=192.168.1.15
+jolla_usb_ip:=192.168.2.15
 jolla_wifi_ip:=Jolla
 
 
@@ -21,7 +21,7 @@ make-jolla-ap: build-tmp rpm-jolla send-jolla-ap
 make-virt: arch:=i686
 make-virt: build-tmp rpm-virt send-virt
 
-build-tmp: 
+build-tmp:
 	rm -rf $(temp)
 	mkdir -p $(temp)/usr/share/applications
 	mkdir -p $(temp)/usr/share/$(Appname)/src/pyPackages
@@ -70,7 +70,7 @@ send-virt:
 		cat ">" /tmp/$(rpmname) "&&" \
 		pkcon install-local -y /tmp/$(rpmname) "&&" \
 		rm /tmp/$(rpmname)
-	
+
 send-jolla-wifi:
 	cat $(temp)/$(rpmname) | ssh $(ssh_user)@$(jolla_wifi_ip) \
 		cat ">" /tmp/$(rpmname) "&&" \
@@ -94,9 +94,7 @@ send-only-virt:
 	cat $(temp)/$(rpmname) | ssh -i '$(sdkpath)/vmshare/ssh/private_keys/SailfishOS_Emulator/nemo' -p2223 $(ssh_user)@localhost \
 		cat ">" /tmp/$(rpmname)
 
-clean: 
+clean:
 	rm -rf $(temp)
 	rm -rf $(builddir)
 	rm -rf ./$(rpmname)
-
-
