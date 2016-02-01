@@ -44,6 +44,14 @@ Page {
     items.append(item)
   }
 
+  ViewPlaceholder {
+    anchors.fill: parent
+    enabled: items.count <= 12
+    BusyIndicator {
+        size: BusyIndicatorSize.Large
+        anchors.centerIn: parent
+        running: parent.enabled
+    }
   }
 
   SilicaListView {
