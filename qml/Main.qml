@@ -66,6 +66,16 @@ Page {
 
     VerticalScrollDecorator {}
 
+    PullDownMenu {
+      MenuItem {
+        text: "Refresh"
+        onClicked: {
+          main.clearItems();
+          main.getItems(main.currentItemsIdentifier);
+        }
+      }
+    }
+
     delegate: ListItem {
       width: parent.width
       anchors {
