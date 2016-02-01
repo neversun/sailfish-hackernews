@@ -5,14 +5,31 @@ import io.thp.pyotherside 1.3
 
 Page {
   id: main
+  property string currentItemsName: 'Top Stories'
+  property string currentItemsIdentifier: 'topstories'
+
 
   Component.onCompleted: {
-    py.call("main.getNewstories",[], {})
+    getItems('topstories');
+  }
+
+  onStatusChanged: {
+    if (status == PageStatus.Active) {
+      pageStack.pushAttached(Qt.resolvedUrl('Items.qml'));
+    }
+  }
+
+  function getItems (itemName, startID, count) {
+    py.call("main.getItems",[itemName, startID, count], {})
+  }
+
+  function clearItems() {
+    items.clear();
   }
 
   Python {
     Component.onCompleted: {
-      setHandler('new-story', main.appendStory)
+      setHandler('new-item', main.appendItem)
     }
 
     onReceived: console.log('Unhandled event: ' + data)
@@ -22,9 +39,11 @@ Page {
     id: items
   }
 
-  function appendStory(story) {
-    console.log(JSON.stringify(story))
-    items.append(story)
+  function appendItem(item) {
+    console.log(JSON.stringify(item))
+    items.append(item)
+  }
+
   }
 
   SilicaListView {
@@ -34,7 +53,7 @@ Page {
     height: parent.height
 
     header: PageHeader {
-        title: "Stories"
+        title: main.currentItemsName
     }
 
     VerticalScrollDecorator {}
