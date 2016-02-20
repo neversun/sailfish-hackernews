@@ -20,10 +20,11 @@ Page {
       name: 'show'
       item: 'showstories'
     }
-    ListElement {
-      name: 'ask'
-      item: 'askstories'
-    }
+    // Webview is not loading URLs provided by these items
+    // ListElement {
+    //   name: 'ask'
+    //   item: 'askstories'
+    // }
     ListElement {
       name: 'job'
       item: 'jobstories'
