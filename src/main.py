@@ -4,12 +4,24 @@ from firebase import firebase
 
 
 firebase = firebase.FirebaseApplication('https://hacker-news.firebaseio.com', None)
+responses = []
+getItemsCount = 0
+eventCount = 0
+itemIDs = []
 
 
 def getItems(items, startID=None, count=None):
+    if items is None and startID is None and count is None:
+        return
+
+    global getItemsCount
+    global itemIDs
+
     items = str(items)
     if count is None:
-        count = 30
+        getItemsCount = 30
+    else:
+        getItemsCount = count
 
     if startID is None:
         itemIDs = firebase.get('/v0/'+items, None)
@@ -18,7 +30,7 @@ def getItems(items, startID=None, count=None):
         for i in allIDs:
             if i < startID:
                 itemIDs.append(i)
-            if len(itemIDs) >= count:
+            if len(itemIDs) >= getItemsCount:
                 break
 
     itemID = None
@@ -26,12 +38,58 @@ def getItems(items, startID=None, count=None):
     for itemID in itemIDs:
         itemID = str(itemID)
 
-        item = firebase.get_async('/v0/item/'+itemID, None, callback=eventNewItem)
+        item = firebase.get_async('/v0/item/'+itemID, None, callback=cbNewItem)
 
         i += 1
-        if i > count:
+        if i >= getItemsCount:
             break
 
 
-def eventNewItem(response):
-    pyotherside.send('new-item', response)
+def cbNewItem(response):
+    global eventCount
+    eventCount += 1
+
+    bufferResponse(response)
+
+
+def bufferResponse(response):
+    global getItemsCount
+    global eventCount
+    global itemIDs
+    global responses
+
+    responses.append(response)
+
+    print(eventCount, getItemsCount)
+
+    if eventCount == getItemsCount:
+        orderedResponses = []
+        print(itemIDs)
+
+        for r in responses:
+            index = itemIDs.index(r['id'])
+            if index is None:
+                continue
+
+            orderedResponses.insert(index, r)
+
+        sendResponses(orderedResponses)
+
+
+def sendResponses(responses):
+    for r in responses:
+        pyotherside.send('new-item', r)
+
+    resetDownloader()
+
+
+def resetDownloader():
+    global eventCount
+    global itemIDs
+    global responses
+    global getItemsCount
+
+    eventCount = 0
+    itemIDs[:] = []
+    responses[:] = []
+    getItemsCount = 0
