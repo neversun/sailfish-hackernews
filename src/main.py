@@ -25,6 +25,9 @@ def getItems(items, startID=None, count=None):
 
     if startID is None:
         itemIDs = firebase.get('/v0/'+items, None)
+
+        if len(itemIDs) < getItemsCount:
+            getItemsCount = len(itemIDs)
     else:
         allIDs = firebase.get('/v0/'+items, None)
         for i in allIDs:
