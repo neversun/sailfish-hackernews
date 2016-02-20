@@ -14,6 +14,8 @@ def getItems(items, startID=None, count=None):
     if items is None and startID is None and count is None:
         return
 
+    sendBusyStatus(True)
+
     global getItemsCount
     global itemIDs
 
@@ -92,7 +94,7 @@ def sendResponses(responses):
         pyotherside.send('new-item', r)
 
     resetDownloader()
-
+    sendBusyStatus(False)
 
 def resetDownloader():
     global eventCount
@@ -104,3 +106,7 @@ def resetDownloader():
     itemIDs[:] = []
     responses[:] = []
     getItemsCount = 0
+
+
+def sendBusyStatus(b):
+    pyotherside.send('item-busy-status', b)

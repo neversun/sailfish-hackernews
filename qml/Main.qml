@@ -29,6 +29,7 @@ Page {
   Python {
     Component.onCompleted: {
       setHandler('new-item', main.appendItem)
+      setHandler('item-busy-status', main.setBusy)
     }
 
     onReceived: console.log('Unhandled event: ' + data)
@@ -47,16 +48,20 @@ Page {
     items.append(item)
   }
 
+  function setBusy(b) {
+    placeholder.enabled = b
+  }
+
   SilicaFlickable {
     anchors.fill: parent
     width: parent.width
     height: parent.height
 
     ViewPlaceholder {
+      id: placeholder
       anchors.fill: parent
-      enabled: items.count <= 12
+      enabled: true
       BusyIndicator {
-        id: busy
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
         running: parent.enabled
@@ -67,6 +72,8 @@ Page {
       MenuItem {
         text: "Refresh"
         onClicked: {
+          if (placeholder.enabled === true) { return }
+
           main.clearItems();
           main.getItems(main.currentItemsIdentifier);
         }
