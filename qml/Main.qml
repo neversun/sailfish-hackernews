@@ -79,6 +79,10 @@ Page {
 
       PullDownMenu {
         MenuItem {
+          text: "About"
+          onClicked: pageStack.push(Qt.resolvedUrl("About.qml"))
+        }
+        MenuItem {
           text: "Refresh"
           onClicked: {
             if (placeholder.enabled === true) { return }
