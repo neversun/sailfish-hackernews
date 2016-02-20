@@ -9,15 +9,23 @@ Page {
   ListModel {
     id: itemsModel
     ListElement {
-      name: 'New Stories'
-      item: 'newstories'
-    }
-    ListElement {
-      name: 'Top Stories'
+      name: 'top'
       item: 'topstories'
     }
     ListElement {
-      name: 'Jobs'
+      name: 'new'
+      item: 'newstories'
+    }
+    ListElement {
+      name: 'show'
+      item: 'showstories'
+    }
+    ListElement {
+      name: 'ask'
+      item: 'askstories'
+    }
+    ListElement {
+      name: 'job'
       item: 'jobstories'
     }
   }
