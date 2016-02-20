@@ -8,14 +8,13 @@ Page {
   property string currentItemsName: 'Top Stories'
   property string currentItemsIdentifier: 'topstories'
 
-
-  Component.onCompleted: {
-    getItems('topstories');
-  }
-
+  property bool __pushedAttached: false
   onStatusChanged: {
-    if (status == PageStatus.Active) {
+    if (main.status == PageStatus.Active && !__pushedAttached) {
       pageStack.pushAttached(Qt.resolvedUrl('Items.qml'));
+      __pushedAttached = true;
+
+      main.getItems('topstories', null, null);
     }
   }
 
@@ -48,9 +47,9 @@ Page {
     anchors.fill: parent
     enabled: items.count <= 12
     BusyIndicator {
-        size: BusyIndicatorSize.Large
-        anchors.centerIn: parent
-        running: parent.enabled
+      size: BusyIndicatorSize.Large
+      anchors.centerIn: parent
+      running: parent.enabled
     }
   }
 
@@ -61,7 +60,7 @@ Page {
     height: parent.height
 
     header: PageHeader {
-        title: main.currentItemsName
+      title: main.currentItemsName
     }
 
     VerticalScrollDecorator {}
