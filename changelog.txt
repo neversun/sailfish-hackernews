@@ -1,2 +1,2 @@
-*Mon Apr 27 2015 Tobi Sim 0.0.1-1
--initial commit
+*Sat Feb 20 2016 Robert Scheinpflug 1.0.0-1
+- initial release
