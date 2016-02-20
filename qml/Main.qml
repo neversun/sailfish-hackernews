@@ -5,7 +5,7 @@ import io.thp.pyotherside 1.3
 
 Page {
   id: main
-  property string currentItemsName: 'Top Stories'
+  property string currentItemsName: 'top'
   property string currentItemsIdentifier: 'topstories'
 
   property bool __pushedAttached: false
