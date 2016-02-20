@@ -1,5 +1,4 @@
 import pyotherside
-import PIL
 from firebase import firebase
 
 

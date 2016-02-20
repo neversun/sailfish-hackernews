@@ -10,15 +10,10 @@ ApplicationWindow {
         Component.onCompleted: {
             py.addImportPath(Qt.resolvedUrl('../src'));
             py.importModule_sync("os")
-            if (py.evaluate("os.uname().machine") == "armv7l"){
-                py.addImportPath(Qt.resolvedUrl('../src/pyPackages/pillow-armv7hl'));
-                py.addImportPath(Qt.resolvedUrl('../src/pyPackages/requests-armv7hl'));
-                py.addImportPath(Qt.resolvedUrl('../src/pyPackages/python_firebase-armv7hl'));
-            } else {
-                py.addImportPath(Qt.resolvedUrl('../src/pyPackages/pillow-i686'));
-                py.addImportPath(Qt.resolvedUrl('../src/pyPackages/requests-i686'));
-                py.addImportPath(Qt.resolvedUrl('../src/pyPackages/python_firebase-i686'));
-            }
+
+            py.addImportPath(Qt.resolvedUrl('../src/pyPackages/requests-noarch'));
+            py.addImportPath(Qt.resolvedUrl('../src/pyPackages/python_firebase-noarch'));
+
             py.importModule('main',function(){
               pageStack.push(Qt.resolvedUrl("Main.qml"))
             })

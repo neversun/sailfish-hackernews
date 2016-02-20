@@ -4,8 +4,8 @@ temp:=/tmp/fpm-jolla
 sdkpath:=$(HOME)/SailfishOS
 sourcePath:=$(shell pwd)
 dependencies=$(shell for file in `cat dependencies.txt`;do echo "-d "$${file};done;)
-arch:=armv7hl
-version:=0.0.1
+arch:=noarch
+version:=1.0.0
 iteration:=1
 rpmname:=$(Appname)-$(version)-$(iteration).$(arch).rpm
 ssh_user:=nemo
@@ -13,13 +13,12 @@ jolla_usb_ip:=192.168.2.15
 jolla_wifi_ip:=Jolla
 
 
-all: clean build-tmp rpm-virt rpm-jolla
+all: clean build-tmp rpm
 
-make-jolla-usb: build-tmp rpm-jolla send-jolla-usb
-make-jolla-wifi: build-tmp rpm-jolla send-jolla-wifi
-make-jolla-ap: build-tmp rpm-jolla send-jolla-ap
-make-virt: arch:=i686
-make-virt: build-tmp rpm-virt send-virt
+make-jolla-usb: build-tmp rpm send-jolla-usb
+make-jolla-wifi: build-tmp rpm send-jolla-wifi
+make-jolla-ap: build-tmp rpm send-jolla-ap
+make-virt: build-tmp rpm send-virt
 
 build-tmp:
 	rm -rf $(temp)
@@ -29,7 +28,6 @@ build-tmp:
 	mkdir -p $(temp)/usr/share/icons/hicolor/108x108/apps
 	mkdir -p $(temp)/usr/share/icons/hicolor/128x128/apps
 	mkdir -p $(temp)/usr/share/icons/hicolor/256x256/apps
-	mkdir -p $(temp)/usr/bin
 	cp -ar ./qml $(temp)/usr/share/$(Appname)
 	cp -ar ./src/* $(temp)/usr/share/$(Appname)/src
 	cp -ar ./pyPackages/*$(arch) $(temp)/usr/share/$(Appname)/src/pyPackages
@@ -38,14 +36,9 @@ build-tmp:
 	cp -ar ./dat/harbour-hackernews-108.png $(temp)/usr/share/icons/hicolor/108x108/apps/$(Appname).png
 	cp -ar ./dat/harbour-hackernews-128.png $(temp)/usr/share/icons/hicolor/128x128/apps/$(Appname).png
 	cp -ar ./dat/harbour-hackernews-256.png $(temp)/usr/share/icons/hicolor/256x256/apps/$(Appname).png
-	install -m 755 ./dat/$(Appname).sh $(temp)/usr/bin/$(Appname)
 
-rpm-virt: arch:=i686
-rpm-virt: build-tmp
+rpm: build-tmp
 	cd $(temp);fpm -f -s dir -t rpm \
-		--after-install $(sourcePath)/dat/upgradeScript.sh \
-		--after-upgrade $(sourcePath)/dat/upgradeScript.sh \
-		--after-remove $(sourcePath)/dat/removeScript.sh \
 		--rpm-changelog $(sourcePath)/changelog.txt\
 		--directories "/usr/share/$(Appname)" \
 		-v $(version) \
@@ -54,21 +47,7 @@ rpm-virt: build-tmp
 		-p $(temp)/$(rpmname) \
 		-n $(Appname) \
 		-a $(arch) \
-		--prefix / *
-
-rpm-jolla: build-tmp
-	cd $(temp);fpm -f -s dir -t rpm \
-		--after-install $(sourcePath)/dat/upgradeScript.sh \
-		--after-upgrade $(sourcePath)/dat/upgradeScript.sh \
-		--after-remove $(sourcePath)/dat/removeScript.sh \
-		--rpm-changelog $(sourcePath)/changelog.txt\
-		--directories "/usr/share/$(Appname)" \
-		-v $(version) \
-		--iteration $(iteration) \
-		$(dependencies) \
-		-p $(temp)/$(rpmname) \
-		-n $(Appname) \
-		-a $(arch) \
+		--vendor '' \
 		--prefix / *
 
 send-virt:
