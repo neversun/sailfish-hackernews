@@ -73,11 +73,11 @@ def bufferResponse(response):
 
     responses.append(response)
 
-    print(eventCount, getItemsCount)
+    # print(eventCount, getItemsCount)
 
     if eventCount == getItemsCount:
         orderedResponses = []
-        print(itemIDs)
+        # print(itemIDs)
 
         for r in responses:
             index = itemIDs.index(r['id'])

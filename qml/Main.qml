@@ -44,7 +44,7 @@ Page {
   }
 
   function appendItem(item) {
-    console.log(JSON.stringify(item))
+    // console.log(JSON.stringify(item))
     items.append(item)
   }
 
@@ -96,7 +96,7 @@ Page {
             if (placeholder.enabled === true) { return }
 
             var lastItem = items.get(items.count-1)
-            console.log(JSON.stringify(lastItem))
+            // console.log(JSON.stringify(lastItem))
             main.getItems(main.currentItemsIdentifier, lastItem.id, null);
           }
         }
