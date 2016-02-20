@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/neversun/sailfish-hackernews/master/dat/harbour-hackernews-256.png) Hacker News reader for Sailfish OS
+![](https://raw.githubusercontent.com/neversun/sailfish-hackernews/master/dat/harbour-hackernews-86.png) Hacker News reader for Sailfish OS
 =============================
 
 A Hacker News reader for Sailfish OS written in Python and QML.
