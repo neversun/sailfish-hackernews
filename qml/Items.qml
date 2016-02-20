@@ -38,7 +38,7 @@ Page {
       }
       onClicked: {
         pageStack.previousPage().clearItems();
-        pageStack.previousPage().getItems(model.item);
+        pageStack.previousPage().getItems(model.item, null, null);
         pageStack.previousPage().currentItemsName = model.name
         pageStack.previousPage().currentItemsIdentifier = model.item
         pageStack.navigateBack(PageStackAction.Animated);
