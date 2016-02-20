@@ -4,6 +4,8 @@ import Sailfish.Silica 1.0
 Page {
   id: items
 
+  RemorsePopup { id: remorse }
+
   ListModel {
     id: itemsModel
     ListElement {
@@ -18,6 +20,23 @@ Page {
       name: 'Jobs'
       item: 'jobstories'
     }
+  }
+
+  function executeRemorse(modelName, modelItem) {
+    remorse.execute("Waiting for current download to finish", function() { items.reloadMainWithItem(modelName, modelItem) }, 3000)
+  }
+
+  function reloadMainWithItem(modelName, modelItem) {
+    if(pageStack.previousPage().getItemsCount() === 0) {
+      executeRemorse(modelName, modelItem);
+      return;
+    }
+
+    pageStack.previousPage().clearItems();
+    pageStack.previousPage().getItems(modelItem, null, null);
+    pageStack.previousPage().currentItemsName = modelName
+    pageStack.previousPage().currentItemsIdentifier = modelItem
+    pageStack.navigateBack(PageStackAction.Animated);
   }
 
   SilicaListView {
@@ -40,13 +59,7 @@ Page {
         right: parent.right
         rightMargin: Theme.horizontalPageMargin
       }
-      onClicked: {
-        pageStack.previousPage().clearItems();
-        pageStack.previousPage().getItems(model.item, null, null);
-        pageStack.previousPage().currentItemsName = model.name
-        pageStack.previousPage().currentItemsIdentifier = model.item
-        pageStack.navigateBack(PageStackAction.Animated);
-      }
+      onClicked: { reloadMainWithItem(model.name, model.item); }
 
       Label {
         id: itemName

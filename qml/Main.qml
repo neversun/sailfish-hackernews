@@ -38,6 +38,10 @@ Page {
     id: items
   }
 
+  function getItemsCount() {
+    return items.count
+  }
+
   function appendItem(item) {
     console.log(JSON.stringify(item))
     items.append(item)
