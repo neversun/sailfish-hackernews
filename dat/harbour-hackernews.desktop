@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Name=harbour-hackernews
-Icon=icon-launcher-component-gallery
+Name=Hacker News
+Icon=harbour-hackernews
 Exec=sailfish-qml harbour-hackernews

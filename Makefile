@@ -26,12 +26,18 @@ build-tmp:
 	mkdir -p $(temp)/usr/share/applications
 	mkdir -p $(temp)/usr/share/$(Appname)/src/pyPackages
 	mkdir -p $(temp)/usr/share/icons/hicolor/86x86/apps
+	mkdir -p $(temp)/usr/share/icons/hicolor/108x108/apps
+	mkdir -p $(temp)/usr/share/icons/hicolor/128x128/apps
+	mkdir -p $(temp)/usr/share/icons/hicolor/256x256/apps
 	mkdir -p $(temp)/usr/bin
 	cp -ar ./qml $(temp)/usr/share/$(Appname)
 	cp -ar ./src/* $(temp)/usr/share/$(Appname)/src
 	cp -ar ./pyPackages/*$(arch) $(temp)/usr/share/$(Appname)/src/pyPackages
 	cp ./dat/$(Appname).desktop $(temp)/usr/share/applications/
-	cp -ar ./dat/appicon.png $(temp)/usr/share/icons/hicolor/86x86/apps/$(Appname).png
+	cp -ar ./dat/harbour-hackernews-86.png $(temp)/usr/share/icons/hicolor/86x86/apps/$(Appname).png
+	cp -ar ./dat/harbour-hackernews-108.png $(temp)/usr/share/icons/hicolor/108x108/apps/$(Appname).png
+	cp -ar ./dat/harbour-hackernews-128.png $(temp)/usr/share/icons/hicolor/128x128/apps/$(Appname).png
+	cp -ar ./dat/harbour-hackernews-256.png $(temp)/usr/share/icons/hicolor/256x256/apps/$(Appname).png
 	install -m 755 ./dat/$(Appname).sh $(temp)/usr/bin/$(Appname)
 
 rpm-virt: arch:=i686
