@@ -75,7 +75,20 @@ Page {
           if (placeholder.enabled === true) { return }
 
           main.clearItems();
-          main.getItems(main.currentItemsIdentifier);
+          main.getItems(main.currentItemsIdentifier, null, null);
+        }
+      }
+    }
+
+    PushUpMenu {
+      MenuItem {
+        text: "Load more"
+        onClicked: {
+          if (placeholder.enabled === true) { return }
+
+          var lastItem = items.get(items.count-1)
+          console.log(JSON.stringify(lastItem))
+          main.getItems(main.currentItemsIdentifier, lastItem.id, null);
         }
       }
     }
