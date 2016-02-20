@@ -14,6 +14,10 @@ Page {
       name: 'Top Stories'
       item: 'topstories'
     }
+    ListElement {
+      name: 'Jobs'
+      item: 'jobstories'
+    }
   }
 
   SilicaListView {
