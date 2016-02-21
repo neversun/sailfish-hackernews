@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 
 Page {
   id: webview
+  allowedOrientations: Orientation.All
 
   // property from lower stack page
   property string url

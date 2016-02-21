@@ -4,6 +4,8 @@ import io.thp.pyotherside 1.3
 
 ApplicationWindow {
     id: root
+    allowedOrientations: Orientation.All
+
     cover: Qt.resolvedUrl("Cover.qml")
     Python {
         id: py

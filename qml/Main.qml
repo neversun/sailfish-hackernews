@@ -5,6 +5,7 @@ import io.thp.pyotherside 1.3
 
 Page {
   id: main
+  allowedOrientations: Orientation.All
   property string currentItemsName: 'top'
   property string currentItemsIdentifier: 'topstories'
 
