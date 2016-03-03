@@ -11,6 +11,7 @@ Page {
   property bool currentlyDownloading
   property bool currentlyDownloadingMore
   property int itemsToDownloadCount: 30
+  property int itemsAlreadyDownloaded: 0
 
   property bool __pushedAttached: false
   onStatusChanged: {
@@ -34,6 +35,7 @@ Page {
     Component.onCompleted: {
       setHandler('new-item', main.appendItem)
       setHandler('items-currently-downloading', main.setDownloadingStatus)
+      setHandler('item-downloaded', main.itemDownloaded)
     }
 
     onReceived: console.log('Unhandled event: ' + data)
@@ -57,7 +59,12 @@ Page {
 
     if (!b) {
       main.currentlyDownloadingMore = false
+      main.itemsAlreadyDownloaded = 0
     }
+  }
+
+  function itemDownloaded() {
+    main.itemsAlreadyDownloaded = main.itemsAlreadyDownloaded + 1
   }
 
   SilicaFlickable {
@@ -69,10 +76,14 @@ Page {
       id: placeholder
       anchors.fill: parent
       enabled: items.count == 0 || main.currentlyDownloadingMore
-      BusyIndicator {
-        size: BusyIndicatorSize.Large
+      Slider {
+        enabled: false // user cannot interact
+        handleVisible: false
+        width: parent.width
         anchors.centerIn: parent
-        running: parent.enabled
+        minimumValue: 0
+        maximumValue: 100
+        value: { (100 / main.itemsToDownloadCount) * main.itemsAlreadyDownloaded }
       }
     }
 

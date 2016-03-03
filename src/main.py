@@ -61,6 +61,8 @@ def cbNewItem(response):
     global eventCount
     eventCount += 1
 
+    pyotherside.send('item-downloaded')
+
     bufferResponse(response)
 
 
