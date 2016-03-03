@@ -9,6 +9,22 @@ eventCount = 0
 itemIDs = []
 
 
+def getCommentsForItem(itemID):
+    itemID = int(itemID)
+    itemID = str(itemID)
+
+    item = firebase.get('/v0/item/'+itemID, None)
+
+    # print(item)
+    # print(item['kids'])
+
+    for commentID in item['kids']:
+        # print("inside loop. kid:", commentID)
+        commentID = str(commentID)
+
+        comment = firebase.get_async('/v0/item/'+commentID, None, callback=cbNewComment)
+
+
 def getItems(items, startID=None, count=None):
     if items is None and startID is None and count is None:
         return
@@ -65,6 +81,10 @@ def cbNewItem(response):
 
     bufferResponse(response)
 
+
+def cbNewComment(response):
+    # print("cbNewComment", response)
+    pyotherside.send('comment-downloaded', response)
 
 def bufferResponse(response):
     global getItemsCount
