@@ -37,7 +37,7 @@ Page {
   }
 
   function reloadMainWithItem(modelName, modelItem) {
-    if(pageStack.previousPage().getItemsCount() === 0) {
+    if(pageStack.previousPage().currentlyDownloading) {
       executeRemorse(modelName, modelItem);
       return;
     }

@@ -8,6 +8,8 @@ Page {
   allowedOrientations: Orientation.All
   property string currentItemsName: 'top'
   property string currentItemsIdentifier: 'topstories'
+  property bool currentlyDownloading
+  property bool currentlyDownloadingMore
 
   property bool __pushedAttached: false
   onStatusChanged: {
@@ -30,7 +32,7 @@ Page {
   Python {
     Component.onCompleted: {
       setHandler('new-item', main.appendItem)
-      setHandler('item-busy-status', main.setBusy)
+      setHandler('items-currently-downloading', main.setDownloadingStatus)
     }
 
     onReceived: console.log('Unhandled event: ' + data)
@@ -49,8 +51,12 @@ Page {
     items.append(item)
   }
 
-  function setBusy(b) {
-    placeholder.enabled = b
+  function setDownloadingStatus(b) {
+    main.currentlyDownloading = b;
+
+    if (!b) {
+      main.currentlyDownloadingMore = false
+    }
   }
 
   SilicaFlickable {
@@ -61,7 +67,7 @@ Page {
     ViewPlaceholder {
       id: placeholder
       anchors.fill: parent
-      enabled: true
+      enabled: items.count == 0 || main.currentlyDownloadingMore
       BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
@@ -86,7 +92,7 @@ Page {
         MenuItem {
           text: "Refresh"
           onClicked: {
-            if (placeholder.enabled === true) { return }
+            if (main.currentlyDownloading === true) { return }
 
             main.clearItems();
             main.getItems(main.currentItemsIdentifier, null, null);
@@ -98,7 +104,8 @@ Page {
         MenuItem {
           text: "Load more"
           onClicked: {
-            if (placeholder.enabled === true) { return }
+            main.currentlyDownloadingMore = true
+            if (main.currentlyDownloading === true) { return }
 
             var lastItem = items.get(items.count-1)
             // console.log(JSON.stringify(lastItem))
