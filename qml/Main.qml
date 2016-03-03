@@ -10,7 +10,7 @@ Page {
   property string currentItemsIdentifier: 'topstories'
   property bool currentlyDownloading
   property bool currentlyDownloadingMore
-  property int itemsToDownloadCount: 30
+  property int itemsToDownloadCount: 20
   property int itemsAlreadyDownloaded: 0
 
   property bool __pushedAttached: false
