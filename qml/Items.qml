@@ -43,7 +43,7 @@ Page {
     }
 
     pageStack.previousPage().clearItems();
-    pageStack.previousPage().getItems(modelItem, null, null);
+    pageStack.previousPage().getItems(modelItem, null, pageStack.previousPage().itemsToDownloadCount);
     pageStack.previousPage().currentItemsName = modelName
     pageStack.previousPage().currentItemsIdentifier = modelItem
     pageStack.navigateBack(PageStackAction.Animated);

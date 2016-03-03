@@ -10,6 +10,7 @@ Page {
   property string currentItemsIdentifier: 'topstories'
   property bool currentlyDownloading
   property bool currentlyDownloadingMore
+  property int itemsToDownloadCount: 30
 
   property bool __pushedAttached: false
   onStatusChanged: {
@@ -17,7 +18,7 @@ Page {
       pageStack.pushAttached(Qt.resolvedUrl('Items.qml'));
       __pushedAttached = true;
 
-      main.getItems('topstories', null, null);
+      main.getItems('topstories', null, main.itemsToDownloadCount);
     }
   }
 
