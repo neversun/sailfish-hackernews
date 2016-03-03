@@ -138,7 +138,10 @@ Page {
           right: parent.right
           rightMargin: Theme.horizontalPageMargin
         }
-        onClicked: pageStack.push(Qt.resolvedUrl('Webview.qml'), { url: model.url})
+        onClicked: {
+          // use this, once pyotherside 1.4 is allowed in harbour: items.get(index).kids;
+          pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id })
+         }
 
         Label {
           id: title
