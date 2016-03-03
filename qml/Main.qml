@@ -163,10 +163,11 @@ Page {
             return (elapsed ? ' (' + elapsed + ')' : '');
           }
 
-          text: model.score + ' points by ' + model.by + timestamp(model.time)
+          text: model.score + ' points by ' + model.by + timestamp(model.time) + ' | ' +model.descendants + ' comments'
           color: Theme.highlightColor
           font.pixelSize: Theme.fontSizeExtraSmall
           horizontalAlignment: Text.AlignLeft
+          truncationMode: TruncationMode.Fade
           anchors {
             top: title.bottom
             left: parent.left
