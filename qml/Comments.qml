@@ -29,6 +29,10 @@ Page {
   }
 
   function appendComment(comment) {
+    // This page is re-pushed on PageStack and all pages share the same model. /
+    // Because of this, we need to check if current page is Active.
+    if (comments.status == PageStatus.Inactive) { return }
+
     console.log(JSON.stringify(comment))
     if (!comment['deleted'] || !comment['dead'])
     commentsModel.append(comment)
@@ -65,7 +69,11 @@ Page {
           right: parent.right
           rightMargin: Theme.horizontalPageMargin
         }
-        // onClicked: { TODO: load further comments, if available }
+        onClicked: {
+          if (model.kids != null) {
+            pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id })
+          }
+        }
 
         Label {
           id: comment
