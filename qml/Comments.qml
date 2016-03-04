@@ -34,8 +34,10 @@ Page {
     if (comments.status == PageStatus.Inactive) { return }
 
     console.log(JSON.stringify(comment))
-    if (!comment['deleted'] || !comment['dead'])
-    commentsModel.append(comment)
+    // holy .... !
+    if (!(!(comment.deleted === undefined) || !(comment.dead === undefined)) && (!(comment.deleted === true)|| !(comment.dead === true))) {
+      commentsModel.append(comment)
+    }
   }
 
   ListModel {
