@@ -89,7 +89,13 @@ Page {
             return (elapsed ? ' (' + elapsed + ')' : '');
           }
 
-          text: 'by ' + model.by + timestamp(model.time)
+          text: {
+            if (model.kids != null) {
+              'by ' + model.by + timestamp(model.time) + ' | ' + model.kids.count + ' replies'
+            } else {
+              'by ' + model.by + timestamp(model.time);
+            }
+          }
           color: Theme.highlightColor
           font.pixelSize: Theme.fontSizeExtraSmall
           horizontalAlignment: Text.AlignLeft
@@ -98,7 +104,6 @@ Page {
             right: parent.right
           }
         }
-
       }
     }
   }
