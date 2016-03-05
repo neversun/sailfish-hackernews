@@ -143,6 +143,17 @@ Page {
           pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id })
          }
 
+         menu: ContextMenu {
+           MenuItem {
+             text: "Comments"
+             onClicked: pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id })
+           }
+           MenuItem {
+             text: "Webview"
+             onClicked: pageStack.push(Qt.resolvedUrl('Webview.qml'), { url: model.url })
+           }
+         }
+
         Label {
           id: title
           text: model.title
