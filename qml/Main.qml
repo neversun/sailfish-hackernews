@@ -171,6 +171,7 @@ Page {
           anchors {
             top: title.bottom
             left: parent.left
+            right: parent.right
           }
         }
       }
