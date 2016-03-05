@@ -7,7 +7,8 @@ Page {
   id: comments
   allowedOrientations: Orientation.All
 
-  property variant itemID // property from lower stack page
+  property int itemID // property from lower stack page
+  property string url // property from lower stack page
 
   function getComments() {
     py.call("main.getCommentsForItem",[itemID], {})
@@ -59,6 +60,18 @@ Page {
       header: PageHeader {
         title: "Comments"
       }
+
+      PullDownMenu {
+        MenuItem {
+          text: "Open thread in Browser"
+          onClicked: Qt.openUrlExternally(model.url)
+        }
+        MenuItem {
+          text: "Open thread in Webview"
+          onClicked: pageStack.push(Qt.resolvedUrl('Webview.qml'), { url: comments.url })
+        }
+      }
+
 
       VerticalScrollDecorator {}
 

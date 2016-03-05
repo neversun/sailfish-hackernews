@@ -146,10 +146,14 @@ Page {
          menu: ContextMenu {
            MenuItem {
              text: "Comments"
-             onClicked: pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id })
+             onClicked: pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id, url: model.url })
            }
            MenuItem {
-             text: "Webview"
+             text: "Open in Browser"
+             onClicked: Qt.openUrlExternally(model.url)
+           }
+           MenuItem {
+             text: "Open in Webview"
              onClicked: pageStack.push(Qt.resolvedUrl('Webview.qml'), { url: model.url })
            }
          }
