@@ -8,7 +8,8 @@ Page {
   allowedOrientations: Orientation.All
 
   property int itemID // property from lower stack page
-  property string url // property from lower stack page
+  property string itemURL // property from lower stack page
+  property string itemTitle // property from lower stack page
 
   function getComments() {
     py.call("main.getCommentsForItem",[itemID], {})

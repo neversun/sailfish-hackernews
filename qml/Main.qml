@@ -140,13 +140,13 @@ Page {
         }
         onClicked: {
           // use this, once pyotherside 1.4 is allowed in harbour: items.get(index).kids;
-          pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id })
+          pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id, itemURL: model.url, itemTitle: model.title })
          }
 
          menu: ContextMenu {
            MenuItem {
              text: "Comments"
-             onClicked: pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id, url: model.url })
+             onClicked: pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id, itemURL: model.url, itemTitle: model.title })
            }
            MenuItem {
              text: "Open in Browser"
