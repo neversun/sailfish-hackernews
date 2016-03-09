@@ -58,9 +58,7 @@ Page {
       height: parent.height
       spacing: Theme.paddingMedium
 
-      header: PageHeader {
-        title: "Comments"
-      }
+      VerticalScrollDecorator {}
 
       PullDownMenu {
         MenuItem {
@@ -73,8 +71,20 @@ Page {
         }
       }
 
-
-      VerticalScrollDecorator {}
+      header: Label {
+        anchors {
+          left: parent.left
+          leftMargin: Theme.horizontalPageMargin
+          right: parent.right
+          rightMargin: Theme.horizontalPageMargin
+        }
+        text: "> " + comments.itemTitle
+        font.pixelSize: Theme.fontSizeExtraSmall
+        width: parent.width
+        horizontalAlignment: Text.AlignLeft
+        color: Theme.highlightColor
+        truncationMode: TruncationMode.Fade
+      }
 
       delegate: BackgroundItem {
         width: parent.width
@@ -87,7 +97,7 @@ Page {
         }
         onClicked: {
           if (model.kids != null) {
-            pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id })
+            pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id, itemTitle: comments.itemTitle })
           }
         }
 
