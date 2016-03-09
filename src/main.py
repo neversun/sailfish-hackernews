@@ -61,6 +61,11 @@ def getItems(items, startID=None, count=None):
             if len(itemIDs) >= getItemsCount:
                 break
 
+    if len(itemIDs) == 0:
+        resetDownloader()
+        currentlyDownloading(False)
+        return
+
     itemID = None
     i = 0
     for itemID in itemIDs:
@@ -85,6 +90,7 @@ def cbNewItem(response):
 def cbNewComment(response):
     # print("cbNewComment", response)
     pyotherside.send('comment-downloaded', response)
+
 
 def bufferResponse(response):
     global getItemsCount
