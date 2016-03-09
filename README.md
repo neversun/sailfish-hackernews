@@ -13,7 +13,8 @@ Supported types of items:
 - show
 - job
 
-![](https://raw.githubusercontent.com/neversun/sailfish-hackernews/master/screenshot1.png) 
+![](https://raw.githubusercontent.com/neversun/sailfish-hackernews/master/screenshot1.png)
+![](https://raw.githubusercontent.com/neversun/sailfish-hackernews/master/screenshot2.png) 
 
 ## License
 
