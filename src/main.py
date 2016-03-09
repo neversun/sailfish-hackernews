@@ -66,6 +66,9 @@ def getItems(items, startID=None, count=None):
         currentlyDownloading(False)
         return
 
+    if len(itemIDs) < getItemsCount:
+        getItemsCount = len(itemIDs)
+
     itemID = None
     i = 0
     for itemID in itemIDs:
