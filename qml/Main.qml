@@ -149,11 +149,11 @@ Page {
              onClicked: pageStack.push(Qt.resolvedUrl('Comments.qml'), { itemID: model.id, itemURL: model.url, itemTitle: model.title })
            }
            MenuItem {
-             text: "Open in Browser"
+             text: "Open article URL in Browser"
              onClicked: Qt.openUrlExternally(model.url)
            }
            MenuItem {
-             text: "Open in Webview"
+             text: "Open article URL in Webview"
              onClicked: pageStack.push(Qt.resolvedUrl('Webview.qml'), { url: model.url })
            }
          }

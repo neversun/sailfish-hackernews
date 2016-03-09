@@ -62,11 +62,11 @@ Page {
 
       PullDownMenu {
         MenuItem {
-          text: "Open thread in Browser"
+          text: "Open article URL in Browser"
           onClicked: Qt.openUrlExternally(model.url)
         }
         MenuItem {
-          text: "Open thread in Webview"
+          text: "Open article URL in Webview"
           onClicked: pageStack.push(Qt.resolvedUrl('Webview.qml'), { url: comments.url })
         }
       }
