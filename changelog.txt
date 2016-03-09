@@ -1,2 +1,8 @@
 *Sat Feb 20 2016 Robert Scheinpflug 1.0.0-1
 - initial release
+
+*Wed Mar 09 2016 Robert Scheinpflug 1.1.0-1
+- add progress indicator for downloading items
+- add view for comments
+- add ContextMenu to open in browser or webview
+- some bugfixes
