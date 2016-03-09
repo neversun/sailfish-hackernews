@@ -31,9 +31,9 @@ Page {
   }
 
   function appendComment(comment) {
-    // This page is re-pushed on PageStack and all pages share the same model. /
-    // Because of this, we need to check if current page is Active.
-    if (comments.status == PageStatus.Inactive) { return }
+    // This page is re-pushed on PageStack and all pages share the same page identifier.
+    // Because of this, we need to check if current item belongs here
+    if (comment.parent != comments.itemID) { return }
 
     console.log(JSON.stringify(comment))
     // holy .... !
