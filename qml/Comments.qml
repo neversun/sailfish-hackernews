@@ -51,6 +51,17 @@ Page {
     width: parent.width
     height: parent.height
 
+    ViewPlaceholder {
+      id: placeholder
+      anchors.fill: parent
+      enabled: commentsModel.count == 0
+      ProgressBar {
+        indeterminate: true
+        width: parent.width
+        anchors.centerIn: parent
+      }
+    }
+
     SilicaListView {
       anchors.fill: parent
       model: commentsModel
