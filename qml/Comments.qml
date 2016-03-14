@@ -124,6 +124,9 @@ Page {
             left: parent.left
             right: parent.right
           }
+          onLinkActivated: {
+            pageStack.push(Qt.resolvedUrl('Webview.qml'), { url: link })
+          }
         }
 
         Label {
