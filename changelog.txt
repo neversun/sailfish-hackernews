@@ -1,3 +1,6 @@
+* Fri Apr 02 2021 Robert Scheinpflug 1.1.1-1
+  - support Sailfish 3.4
+
 * Wed Mar 09 2016 Robert Scheinpflug 1.1.0-1
   - add progress indicator for downloading items
   - add view for comments
