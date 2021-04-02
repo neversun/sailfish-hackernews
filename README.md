@@ -19,3 +19,24 @@ Supported types of items:
 ## License
 
 [MIT](https://github.com/neversun/sailfish-hackernews/blob/master/LICENSE)
+
+
+## Development
+
+## Prerequisites
+
+> Ubuntu-based linux
+
+1. install https://github.com/jordansissel/fpm
+2. `apt-get install rpm`
+
+## Build to VM
+
+1. make make-virt
+
+## Debug vm
+
+```shell
+> ssh -i '~/SailfishOS/vmshare/ssh/private_keys/Sailfish_OS-Emulator-latest/root' -p2223 root@localhost
+> journalctl -alef -n all --full
+```
