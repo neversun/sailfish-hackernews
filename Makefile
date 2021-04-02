@@ -8,7 +8,7 @@ arch:=noarch
 version:=1.1.0
 iteration:=1
 rpmname:=$(Appname)-$(version)-$(iteration).$(arch).rpm
-ssh_user:=nemo
+ssh_user:=root
 jolla_usb_ip:=192.168.2.15
 jolla_wifi_ip:=Jolla
 
@@ -51,14 +51,14 @@ rpm: build-tmp
 		--prefix / *
 
 send-virt:
-	cat $(temp)/$(rpmname) | ssh -i '$(sdkpath)/vmshare/ssh/private_keys/SailfishOS_Emulator/nemo' -p2223 $(ssh_user)@localhost \
+	cat $(temp)/$(rpmname) | ssh -i '$(sdkpath)/vmshare/ssh/private_keys/Sailfish_OS-Emulator-latest/root' -p2223 $(ssh_user)@localhost \
 		cat ">" /tmp/$(rpmname) "&&" \
 		pkcon install-local -y /tmp/$(rpmname) "&&" \
 		rm /tmp/$(rpmname)
 
 send-jolla-wifi:
 	cat $(temp)/$(rpmname) | ssh $(ssh_user)@$(jolla_wifi_ip) \
-		cat ">" /tmp/$(rpmname) "&&" \
+		cat ">" /tmp/$(rpmname) "&&" \	
 		pkcon install-local -y /tmp/$(rpmname) "&&" \
 		rm /tmp/$(rpmname)
 
@@ -76,7 +76,7 @@ send-jolla-usb:
 		rm /tmp/$(rpmname)
 
 send-only-virt:
-	cat $(temp)/$(rpmname) | ssh -i '$(sdkpath)/vmshare/ssh/private_keys/SailfishOS_Emulator/nemo' -p2223 $(ssh_user)@localhost \
+	cat $(temp)/$(rpmname) | ssh -i '$(sdkpath)/vmshare/ssh/private_keys/Sailfish_OS-Emulator-latest/root' -p2223 $(ssh_user)@localhost \
 		cat ">" /tmp/$(rpmname)
 
 clean:
