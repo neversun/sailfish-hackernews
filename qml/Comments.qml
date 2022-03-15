@@ -35,7 +35,7 @@ Page {
     // Because of this, we need to check if current item belongs here
     if (comment.parent != comments.itemID) { return }
 
-    console.log(JSON.stringify(comment))
+    //console.log(JSON.stringify(comment))
     // holy .... !
     if (!(!(comment.deleted === undefined) || !(comment.dead === undefined)) && (!(comment.deleted === true)|| !(comment.dead === true))) {
       commentsModel.append(comment)
@@ -90,11 +90,15 @@ Page {
           rightMargin: Theme.horizontalPageMargin
         }
         text: "> " + comments.itemTitle
-        font.pixelSize: Theme.fontSizeExtraSmall
+        font.pixelSize: Theme.fontSizeSmall
+
+        maximumLineCount: 2
+        wrapMode: Text.WordWrap
+        truncationMode: TruncationMode.Fade
+	
         width: parent.width
         horizontalAlignment: Text.AlignLeft
         color: Theme.highlightColor
-        truncationMode: TruncationMode.Fade
       }
 
       delegate: BackgroundItem {
