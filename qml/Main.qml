@@ -93,6 +93,7 @@ Page {
       model: items
       width: parent.width
       height: parent.height
+      spacing: Theme.paddingLarge
 
       VerticalScrollDecorator {}
 
@@ -132,11 +133,13 @@ Page {
 
       delegate: ListItem {
         width: parent.width
+	height: contain.childrenRect.height
         anchors {
           left: parent.left
           leftMargin: Theme.horizontalPageMargin
           right: parent.right
           rightMargin: Theme.horizontalPageMargin
+          bottomMargin: Theme.verticalPageMargin
         }
         onClicked: {
           // use this, once pyotherside 1.4 is allowed in harbour: items.get(index).kids;
@@ -157,38 +160,48 @@ Page {
              onClicked: pageStack.push(Qt.resolvedUrl('Webview.qml'), { url: model.url })
            }
          }
-
-        Label {
-          id: title
-          text: model.title
-          font.pixelSize: Theme.fontSizeMedium
-          color: highlighted ? Theme.highlightColor : Theme.primaryColor
-          horizontalAlignment: Text.AlignLeft
-          truncationMode: TruncationMode.Fade
+	Item {
+	  id: contain
+	  height: title.contentHeight + comment.height
           anchors {
             left: parent.left
             right: parent.right
           }
-        }
-
-        Label {
-          function timestamp(unixTime) {
-            var date = new Date(unixTime * 1000);
-            var elapsed = Format.formatDate(date, Formatter.DurationElapsed);
-            return (elapsed ? ' (' + elapsed + ')' : '');
+          Label {
+            id: title
+            text: model.title
+            font.pixelSize: Theme.fontSizeMedium
+            color: highlighted ? Theme.highlightColor : Theme.primaryColor
+            horizontalAlignment: Text.AlignLeft
+            truncationMode: TruncationMode.Fade
+            maximumLineCount: 2
+            wrapMode: Text.WordWrap
+            anchors {
+              left: parent.left
+              right: parent.right
+            }
           }
+          Label {
+             id: comments
 
-          text: model.score + ' points by ' + model.by + timestamp(model.time) + ' | ' +model.descendants + ' comments'
-          color: Theme.highlightColor
-          font.pixelSize: Theme.fontSizeExtraSmall
-          horizontalAlignment: Text.AlignLeft
-          truncationMode: TruncationMode.Fade
-          anchors {
-            top: title.bottom
-            left: parent.left
-            right: parent.right
+             function timestamp(unixTime) {
+               var date = new Date(unixTime * 1000);
+               var elapsed = Format.formatDate(date, Formatter.DurationElapsed);
+               return (elapsed ? ' (' + elapsed + ')' : '');
+             }
+
+            text: model.score + ' points by ' + model.by + timestamp(model.time) + ' | ' +model.descendants + ' comments'
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeSmall
+            horizontalAlignment: Text.AlignLeft
+            truncationMode: TruncationMode.Fade
+            anchors {
+              top: title.bottom 
+              left: parent.left
+              right: parent.right
+            }
           }
-        }
+	}
       }
     }
   }
