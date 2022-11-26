@@ -1,3 +1,6 @@
+* Fri Mai 05 2022 Mark Washeim 1.2.0-1
+  - make long titles wrap
+
 * Fri Apr 02 2021 Robert Scheinpflug 1.1.1-1
   - support Sailfish 3.4
 

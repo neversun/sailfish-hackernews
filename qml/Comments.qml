@@ -33,11 +33,11 @@ Page {
   function appendComment(comment) {
     // This page is re-pushed on PageStack and all pages share the same page identifier.
     // Because of this, we need to check if current item belongs here
-    if (comment.parent != comments.itemID) { return }
+    if (comment.parent != comments.itemID) {
+      return
+    }
 
-    //console.log(JSON.stringify(comment))
-    // holy .... !
-    if (!(!(comment.deleted === undefined) || !(comment.dead === undefined)) && (!(comment.deleted === true)|| !(comment.dead === true))) {
+    if (!comment.deleted || !comment.dead) {
       commentsModel.append(comment)
     }
   }
@@ -62,7 +62,7 @@ Page {
       }
     }
 
-    SilicaListView {
+    SilicaListView {  
       anchors.fill: parent
       model: commentsModel
       width: parent.width

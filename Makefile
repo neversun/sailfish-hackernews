@@ -5,7 +5,7 @@ sdkpath:=$(HOME)/SailfishOS
 sourcePath:=$(shell pwd)
 dependencies=$(shell for file in `cat dependencies.txt`;do echo "-d "$${file};done;)
 arch:=noarch
-version:=1.1.1
+version:=1.2.0
 iteration:=1
 rpmname:=$(Appname)-$(version)-$(iteration).$(arch).rpm
 ssh_user:=defaultuser
@@ -51,7 +51,7 @@ rpm: build-tmp
 		--prefix / *
 
 send-virt:
-	cat $(temp)/$(rpmname) | ssh -i '$(sdkpath)/vmshare/ssh/private_keys/Sailfish_OS-Emulator-latest/root' -p2223 $(ssh_user_virt)@localhost \
+	cat $(temp)/$(rpmname) | ssh -i '$(sdkpath)/vmshare/ssh/private_keys/sdk' -p2223 $(ssh_user_virt)@localhost \
 		cat ">" /tmp/$(rpmname) "&&" \
 		pkcon install-local -y /tmp/$(rpmname) "&&" \
 		rm /tmp/$(rpmname)
@@ -76,7 +76,7 @@ send-jolla-usb:
 		rm /tmp/$(rpmname)
 
 send-only-virt:
-	cat $(temp)/$(rpmname) | ssh -i '$(sdkpath)/vmshare/ssh/private_keys/Sailfish_OS-Emulator-latest/root' -p2223 $(ssh_user_virt)@localhost \
+	cat $(temp)/$(rpmname) | ssh -i '$(sdkpath)/vmshare/ssh/private_keys/sdk' -p2223 $(ssh_user_virt)@localhost \
 		cat ">" /tmp/$(rpmname)
 
 clean:
