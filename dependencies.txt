@@ -1,2 +1,3 @@
 libsailfishapp-launcher
 pyotherside-qml-plugin-python3-qt5
+sailfish-components-webview-qt5
