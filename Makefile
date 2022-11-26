@@ -8,10 +8,10 @@ arch:=noarch
 version:=1.1.1
 iteration:=1
 rpmname:=$(Appname)-$(version)-$(iteration).$(arch).rpm
-ssh_user:=nemo
-ssh_user_virt:=root
+ssh_user:=defaultuser
+ssh_user_virt:=defaultuser
 jolla_usb_ip:=192.168.2.15
-jolla_wifi_ip:=192.168.178.25
+jolla_wifi_ip:=192.168.178.39
 
 all: clean build-tmp rpm
 
